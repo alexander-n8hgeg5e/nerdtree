@@ -161,10 +161,10 @@ call nerdtree#ui_glue#setupCommands()
 "============================================================
 augroup NERDTree
     "Save the cursor position whenever we close the nerd tree
-    exec "autocmd BufLeave ". g:NERDTreeCreator.BufNamePrefix() ."* if g:NERDTree.IsOpen() | call b:NERDTree.ui.saveScreenState() | endif"
+    exec "autocmd BufLeave ". g:NERDTreeCreator.BufNamePrefix() ."* nested if g:NERDTree.IsOpen() | call b:NERDTree.ui.saveScreenState()|call EventWinLeave()| endif"
 
     "disallow insert mode in the NERDTree
-    exec "autocmd BufEnter ". g:NERDTreeCreator.BufNamePrefix() ."* stopinsert"
+    exec "autocmd BufEnter ". g:NERDTreeCreator.BufNamePrefix() ."* nested stopinsert"
 augroup END
 
 if g:NERDTreeHijackNetrw

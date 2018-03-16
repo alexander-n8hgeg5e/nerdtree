@@ -69,6 +69,7 @@ endfunction
 
 " FUNCTION: Opener._gotoTargetWin() {{{1
 function! s:Opener._gotoTargetWin()
+    call EventWinLeave()
     if b:NERDTree.isWinTree()
         if self._where == 'v'
             vsplit
@@ -92,6 +93,7 @@ function! s:Opener._gotoTargetWin()
 
         call self._checkToCloseTree(0)
     endif
+    call EventWinEnter()
 endfunction
 
 " FUNCTION: s:Opener._isWindowUsable(winnumber) {{{1

@@ -16,7 +16,7 @@ let g:loaded_nerdtree_exec_menuitem = 1
 
 call NERDTreeAddMenuItem({
             \ 'text': '(!)Execute file',
-            \ 'shortcut': '!',
+            \ 'shortcut': 'X',
             \ 'callback': 'NERDTreeExecFile',
             \ 'isActiveCallback': 'NERDTreeExecFileActive' })
 

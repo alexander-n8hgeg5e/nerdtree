@@ -42,22 +42,31 @@ function! s:NERDTree.Close()
         " back on the buffer ID if win_getid/win_gotoid are not available, in
         " which case we'll focus an arbitrary window showing the buffer.
         let l:useWinId = exists('*win_getid') && exists('*win_gotoid')
-
         if winnr() == s:NERDTree.GetWinNum()
+        " cursor in nerdtree
+        " jump to buffer remember the buffer and jump back
             call nerdtree#exec("wincmd p")
             let l:activeBufOrWin = l:useWinId ? win_getid() : bufnr("")
             call nerdtree#exec("wincmd p")
+    
         else
+        "not in nerdtree
+        " remember the buffer
             let l:activeBufOrWin = l:useWinId ? win_getid() : bufnr("")
         endif
-
+        ""
+        ""jump to nerdtree and close it
         call nerdtree#exec(s:NERDTree.GetWinNum() . " wincmd w")
         close
+        ""clean up!
+        call EventWinLeave()
+        ""goto prev win
         if l:useWinId
             call nerdtree#exec("call win_gotoid(" . l:activeBufOrWin . ")")
         else
             call nerdtree#exec(bufwinnr(l:activeBufOrWin) . " wincmd w")
         endif
+        call EventWinEnter()
     else
         close
     endif
